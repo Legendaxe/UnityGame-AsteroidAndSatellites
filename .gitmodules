@@ -1,0 +1,3 @@
+[submodule "src/submodules/AsteroidAndEngineCore"]
+	path = Assets/Submodules/AsteroidAndEngineCore
+	url = https://github.com/Legendaxe/Asteroid-and-satellites.git
