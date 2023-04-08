@@ -1128,6 +1128,7 @@ GameObject:
   - component: {fileID: 822533382}
   - component: {fileID: 822533384}
   - component: {fileID: 822533383}
+  - component: {fileID: 822533385}
   m_Layer: 5
   m_Name: GameEndPanel
   m_TagString: Untagged
@@ -1195,6 +1196,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822533381}
   m_CullTransparentMesh: 1
+--- !u!114 &822533385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822533381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011508e156ecfbe428e01abb2e890b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _game: {fileID: 1133898098}
 --- !u!1 &874708894
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,7 +2102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41444a79a851e33488f8f6c2279f7c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _GameEndPanel: {fileID: 822533381}
   _field: {fileID: 1726735635}
   _asteroidPrefabs:
   - {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}

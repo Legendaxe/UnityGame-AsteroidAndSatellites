@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ public class SatellitesListListener : MonoBehaviour
     private void Start()
     {
         _game.OnCreatedSatellite += OnCreatedSatellite;
+        _game.OnNewGame += OnNewGame;
     }
 
     private void OnDestroy()
@@ -23,5 +23,10 @@ public class SatellitesListListener : MonoBehaviour
     private void OnCreatedSatellite(object sender, StringEventArgs e)
     {
         _satellitesList.text += e.Text + System.Environment.NewLine;
+    }
+
+    private void OnNewGame(object sender, EventArgs e)
+    {
+        _satellitesList.text = "";
     }
 }

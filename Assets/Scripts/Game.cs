@@ -9,8 +9,6 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private GameObject _GameEndPanel;
-
     [SerializeField] private GameObject _field;
 
     [SerializeField] private GameObject[] _asteroidPrefabs;
@@ -26,19 +24,19 @@ public class Game : MonoBehaviour
     private List<Satellite> _satellites;
 
     public event EventHandler<StringEventArgs> OnCreatedSatellite;
+    public event EventHandler OnGameVictory;
+    public event EventHandler OnNewGame;
 
     void Start()
     {
-        NewGame();
-        
         _satellites = new List<Satellite>();
         _satelliteInstances = new List<GameObject>();
-
+        
+        NewGame();
     }
 
     public void NewGame()
     {
-        _GameEndPanel.SetActive(false);
 
         int Range = (int)_field.transform.localScale.x / (2 * _gape);
 
@@ -65,10 +63,14 @@ public class Game : MonoBehaviour
             }
         }
 
+        _satellites.Clear();
+        _satelliteInstances.Clear();
+
         _asteroid = new Asteroid(asteroidPosition.x, asteroidPosition.y, asteroidPosition.z);
         _asteroidInstance = Instantiate(_asteroidPrefabs[UnityEngine.Random.Range(0, _asteroidPrefabs.Length)], asteroidPosition, Quaternion.identity);
         _asteroidInstance.SetActive(false);
-
+        
+        OnNewGame?.Invoke(this, new EventArgs());
     }
 
     public void CreateSatellite(int x, int y, int z)
@@ -83,8 +85,7 @@ public class Game : MonoBehaviour
 
         if ((int)_asteroid.GetDistanceTo(_satellites.Last()) == 0)
         {
-            _asteroidInstance.SetActive(true);
-            _GameEndPanel.SetActive(true);
+            GameVictory();
         }
 
         CreatedSatellite();
@@ -94,5 +95,11 @@ public class Game : MonoBehaviour
     {
         OnCreatedSatellite?.Invoke(this, new StringEventArgs($"Satellite #{_satellites.Count}:" + System.Environment.NewLine +
                                                              $"Distance to asteroid {Math.Round(_asteroid.GetDistanceTo(_satellites.Last()), 2)}"));
+    }
+
+    private void GameVictory()
+    {
+        _asteroidInstance.SetActive(true);
+        OnGameVictory?.Invoke(this, new EventArgs());
     }
 }
