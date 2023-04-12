@@ -1,7 +1,7 @@
 using System;
 public class StringEventArgs : EventArgs
 {
-    public string Text { get; set; }
+    public string Text { get; }
 
     public StringEventArgs(string text)
     {

@@ -14,14 +14,14 @@ public class CameraController : MonoBehaviour
     
     [SerializeField] private float maxZoom = 2000f;
 
-    private float x = 0.0f;
-    private float y = 0.0f;
+    private float _x;
+    private float _y;
 
     void Start()
     {
         Vector3 angles = transform.eulerAngles;
-        x = angles.y;
-        y = angles.x;
+        _x = angles.y;
+        _y = angles.x;
     }
 
     void LateUpdate()
@@ -32,15 +32,17 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetMouseButton(0))
         {
-            x += Input.GetAxis("Mouse X") * sensitivity;
-            y -= Input.GetAxis("Mouse Y") * sensitivity;
+            _x += Input.GetAxis("Mouse X") * sensitivity;
+            _y -= Input.GetAxis("Mouse Y") * sensitivity;
         }
         distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * sensitivity * 5, minZoom, maxZoom);
 
-        Quaternion rotation = Quaternion.Euler(y, x, 0);
+        Quaternion rotation = Quaternion.Euler(_y, _x, 0);
         Vector3 position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
-
-        transform.rotation = rotation;
-        transform.position = position;
+        
+        Transform cachedTransform = transform;
+        cachedTransform.rotation = rotation;
+        cachedTransform.position = position;
+        
     }
 }

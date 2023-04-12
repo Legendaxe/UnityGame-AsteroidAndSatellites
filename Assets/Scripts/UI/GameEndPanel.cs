@@ -1,20 +1,21 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameEndPanel : MonoBehaviour
 {
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private Game game;
     private void Start() 
     {
-        _game.OnGameVictory += OnGameVictory;
-        _game.OnNewGame += OnNewGame;
+        game.OnGameVictory += OnGameVictory;
+        game.OnNewGame += OnNewGame;
         gameObject.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        _game.OnGameVictory -= OnGameVictory;
-        _game.OnNewGame -= OnNewGame;    
+        game.OnGameVictory -= OnGameVictory;
+        game.OnNewGame -= OnNewGame;    
     }
 
 

@@ -1,11 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CreateSatelliteButton : MonoBehaviour
 {
-    [SerializeField] private GameObject _field;
+    [FormerlySerializedAs("_field")] [SerializeField] private GameObject field;
 
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private Game game;
 
     [SerializeField] private TMP_InputField xCoordinateInput;
 
@@ -13,25 +14,25 @@ public class CreateSatelliteButton : MonoBehaviour
     
     [SerializeField] private TMP_InputField zCoordinateInput;
 
-    private int x;
-    private int y;
-    private int z;
+    private int _x;
+    private int _y;
+    private int _z;
 
-    private float xFieldRange => _field.transform.localScale.x / 2;
-    private float yFieldRange => _field.transform.localScale.z / 2;
-    private float zFieldRange => _field.transform.localScale.z / 2;
+    private float XFieldRange => field.transform.localScale.x / 2;
+    private float YFieldRange => field.transform.localScale.z / 2;
+    private float ZFieldRange => field.transform.localScale.z / 2;
 
     public void OnCreateSatelliteButtonClick()
     {
-        if(int.TryParse(xCoordinateInput.text, out x)
-           && int.TryParse(yCoordinateInput.text, out y)
-           && int.TryParse(zCoordinateInput.text, out z))
+        if(int.TryParse(xCoordinateInput.text, out _x)
+           && int.TryParse(yCoordinateInput.text, out _y)
+           && int.TryParse(zCoordinateInput.text, out _z))
         {
-            if (Mathf.Abs(x) <= xFieldRange
-                && Mathf.Abs(y) <= yFieldRange
-                && Mathf.Abs(z) <= zFieldRange)
+            if (Mathf.Abs(_x) <= XFieldRange
+                && Mathf.Abs(_y) <= YFieldRange
+                && Mathf.Abs(_z) <= ZFieldRange)
             {
-                _game.CreateSatellite(x, y, z);
+                game.CreateSatellite(_x, _y, _z);
             }
         }
 

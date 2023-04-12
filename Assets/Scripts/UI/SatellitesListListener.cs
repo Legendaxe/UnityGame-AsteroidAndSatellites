@@ -1,32 +1,33 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SatellitesListListener : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _satellitesList;
+    [FormerlySerializedAs("_satellitesList")] [SerializeField] private TextMeshProUGUI satellitesList;
 
-    [SerializeField] private Game _game;
+    [FormerlySerializedAs("_game")] [SerializeField] private Game game;
 
 
     private void Start()
     {
-        _game.OnCreatedSatellite += OnCreatedSatellite;
-        _game.OnNewGame += OnNewGame;
+        game.OnCreatedSatellite += OnCreatedSatellite;
+        game.OnNewGame += OnNewGame;
     }
 
     private void OnDestroy()
     {
-        _game.OnCreatedSatellite -= OnCreatedSatellite;
+        game.OnCreatedSatellite -= OnCreatedSatellite;
     }
 
     private void OnCreatedSatellite(object sender, StringEventArgs e)
     {
-        _satellitesList.text += e.Text + System.Environment.NewLine;
+        satellitesList.text += e.Text + System.Environment.NewLine;
     }
 
     private void OnNewGame(object sender, EventArgs e)
     {
-        _satellitesList.text = "";
+        satellitesList.text = "";
     }
 }
